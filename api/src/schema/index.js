@@ -7,16 +7,12 @@
  import path from 'path'
  import test from './test'
  import * as globalNexusTypes from './globalNexusTypes'
- import * as schema from './schema'
-
-//  const allTypes = require('./schema')
  
  const nexusSchema = makeSchema({
     plugins: [declarativeWrappingPlugin()],
    types: [
     ...Object.values(globalNexusTypes),
-    // ...Object.values(schema),
-     ...test
+    ...test
    ],
  
    outputs: {
