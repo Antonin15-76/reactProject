@@ -13,6 +13,8 @@ const formatError = (err) => {
 // Le contexte se construit à la requête
 
 const getContext = async (contextParams, mongoClientPromise) => {
+  console.log(contextParams)
+  console.log(mongoClientPromise)
   const data = {
     timeZone: contextParams.req.header('TimeZone') || 'UTC',
     locale: contextParams.req.acceptsLanguages('fr') || 'en_GB',
@@ -21,6 +23,7 @@ const getContext = async (contextParams, mongoClientPromise) => {
   const dbName =  process.env.MONGO_DATABASE
 
   const db = await mongoClientPromise.then((client) => client.db(dbName))
+  console.log(db)
   return { ...data, db}
 }
 

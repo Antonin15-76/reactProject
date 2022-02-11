@@ -1,6 +1,6 @@
+import { json, urlencoded } from 'body-parser'
 import express from 'express'
-import pkg from 'body-parser';
-const { urlencoded, json } = pkg;
+
 
 const app = express()
 

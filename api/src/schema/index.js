@@ -6,18 +6,21 @@
  import { makeSchema, declarativeWrappingPlugin } from 'nexus'
  import path from 'path'
  import test from './test'
+ import * as globalNexusTypes from './globalNexusTypes'
+ import * as schema from './schema'
 
- const allTypes = require('./schema')
+//  const allTypes = require('./schema')
  
  const nexusSchema = makeSchema({
     plugins: [declarativeWrappingPlugin()],
    types: [
-     ...Object.values(allTypes),
+    ...Object.values(globalNexusTypes),
+    // ...Object.values(schema),
      ...test
    ],
  
    outputs: {
-     schema: path.join(__dirname, '/schema.graphql'),
+     schema: path.join(__dirname, 'schema.graphql'),
      typegen: path.join(__dirname, 'nexus-typegen.ts')
    }
  })
