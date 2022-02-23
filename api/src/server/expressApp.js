@@ -1,8 +1,9 @@
-import { AuthenticationError, UserInputError } from 'apollo-server-express'
 import { json, urlencoded } from 'body-parser'
-import { NotFoundError } from 'errors'
+import { AuthenticationError, NotFoundError, UserInputError } from 'errors'
 import express from 'express'
-
+import { dbPromise } from 'utils'
+import verifyAuthentication from './verifyAuthentication'
+import bcrypt from 'bcryptjs'
 
 const app = express()
 
@@ -36,23 +37,25 @@ app.use('/logout', async (req, res, next) => {
 app.use('/login', async (req, res, next) => {
   try {
     const { username, password } = Object.keys(req.body).length === 0 ? req.query : req.body
+    console.log(username, password)
     if (!username || !password) {
       throw new UserInputError('Username or password not set on request', { invalidArgs: { username, password } })
     }
     const db = await dbPromise
-
+ 
     const user = await db.collection('user').findOne({ username })
 
     if (!user) throw new NotFoundError('User not found')
     const isGood = await bcrypt.compare(password, user.password)
+    console.log(isGood)
     if (!isGood) throw new AuthenticationError()
-    const token = jwt.sign({ userId: user._id.toString() }, process.env.SECRET)
-    res.json({ token })
+    // const token = jwt.sign({ userId: user._id.toString() }, process.env.SECRET)
+    // res.json({ token })
   } catch (err) {
     next(err)
   }
 })
 
-// app.use('/verify-authentication', verifyAuthentication, (req, res) => res.status(200).json({ isLoggedIn: true }))
+app.use('/verify-authentication', verifyAuthentication, (req, res) => res.status(200).json({ isLoggedIn: true }))
 
 export default app

@@ -25,6 +25,7 @@ export class AuthenticationError extends ApolloAuthenticationError {
 
 export class UserInputError extends ApolloUserInputError {
   constructor (message = 'BAD_USER_INPUT', properties) {
+    console.log(properties)
     super(message, properties)
     Object.defineProperty(this, 'name', { value: 'UserInputError' })
     this.code = 400
