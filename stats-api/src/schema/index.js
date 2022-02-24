@@ -3,22 +3,24 @@
  * - Importer tous les types graphQL défini à partir du fichier "schema.js"
  */
 
- import { makeSchema, declarativeWrappingPlugin } from 'nexus'
- import path from 'path'
- import test from './test'
- import * as globalNexusTypes from './globalNexusTypes'
- 
- const nexusSchema = makeSchema({
-    plugins: [declarativeWrappingPlugin()],
-   types: [
+import { makeSchema, declarativeWrappingPlugin } from 'nexus'
+import path from 'path'
+import test from './test'
+import * as globalNexusTypes from './globalNexusTypes'
+import * as user from './user'
+
+const nexusSchema = makeSchema({
+  plugins: [declarativeWrappingPlugin()],
+  types: [
     ...Object.values(globalNexusTypes),
+    ...Object.values(user),
     ...test
-   ],
- 
-   outputs: {
-     schema: path.join(__dirname, 'schema.graphql'),
-     typegen: path.join(__dirname, 'nexus-typegen.ts')
-   }
- })
- 
+  ],
+
+  outputs: {
+    schema: path.join(__dirname, 'schema.graphql'),
+    typegen: path.join(__dirname, 'nexus-typegen.ts')
+  }
+})
+
 export default nexusSchema

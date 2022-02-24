@@ -1,6 +1,7 @@
 
-import { arg, idArg, inputObjectType, mutationField, objectType, queryField } from "nexus"
+import { arg, booleanArg, idArg, inputObjectType, mutationField, objectType, queryField } from "nexus"
 import { objIdArg } from "schema/globalNexusTypes"
+import { Ligue, LigueInput } from "./ligue"
 import * as resolvers from "./resolvers"
 
 export const User = objectType({
@@ -11,8 +12,8 @@ export const User = objectType({
     t.string('lastName', { nullable: false, resolve: resolvers.lastNameResolve })
     t.string('pseudo', { nullable: false, resolve: resolvers.pseudoResolve })
     t.string('email', { nullable: false, resolve: resolvers.emailResolve })
-    t.string('poassword', { nullable: false, resolve: resolvers.passwordResolve })
-    t.list.field('ligue', { type: 'Ligue', nullable: true, resolve: resolvers.ligueResolve })
+    t.string('password', { nullable: false, resolve: resolvers.passwordResolve })
+    t.list.field('ligue', { type: Ligue, nullable: true, resolve: resolvers.ligueResolve })
   }
 })
 
@@ -44,7 +45,7 @@ export const usersQueryField = queryField('users', {
   resolve: resolvers.usersResolve
 })
 
-// MUTATION
+// // MUTATION
 
 export const CreateUserInput = inputObjectType({
   name: 'CreateUserInput',
@@ -54,8 +55,9 @@ export const CreateUserInput = inputObjectType({
     t.string('firstName', { nullable: false })
     t.string('lastName', { nullable: false })
     t.string('pseudo', { nullable: false })
-    t.string('poassword', { nullable: false })
-    t.list.field('ligue', { type: 'Ligue', nullable: true })
+    t.string('password', { nullable: false })
+    t.string('email', { nullable: false })
+    t.list.field('ligue', { type: LigueInput, nullable: true })
   }
 })
 
@@ -66,7 +68,7 @@ export const createUserMutationField = mutationField('createUser', {
   resolve: resolvers.createUserResolve
 })
 
-//UPDATE
+// //UPDATE
 
 export const UpdateUserInput = inputObjectType({
     name: 'UpdateUserInput',
@@ -76,8 +78,9 @@ export const UpdateUserInput = inputObjectType({
       t.string('firstName', { nullable: true })
       t.string('lastName', { nullable: true })
       t.string('pseudo', { nullable: true })
-      t.string('poassword', { nullable: true })
-      t.list.field('ligue', { type: 'Ligue', nullable: true })
+      t.string('password', { nullable: true })
+      t.string('email', { nullable: true })
+      t.list.field('ligue', { type: 'LigueInput', nullable: true })
     }
   })
   
@@ -88,7 +91,7 @@ export const UpdateUserInput = inputObjectType({
     resolve: resolvers.updateUserResolve
   })
 
-  // DELETE
+//   // DELETE
 
 export const deleteUserMutationField = mutationField('deleteUser', {
     type: User,

@@ -3,8 +3,8 @@ import { arg, idArg, inputObjectType, mutationField, objectType, queryField } fr
 import { objIdArg } from "schema/globalNexusTypes"
 import * as resolvers from "./resolvers"
 
-export const Accepted = objectType({
-  name: 'Accepted',
+export const Ligue = objectType({
+  name: 'Ligue',
   definition (t) {
     t.implements('Node')
     t.string('role', { nullable: false, resolve: resolvers.roleResolve })
@@ -44,8 +44,8 @@ export const Accepted = objectType({
 
 // MUTATION
 
-export const CreateAcceptedInput = inputObjectType({
-  name: 'CreateAcceptedInput',
+export const CreateLigueInput = inputObjectType({
+  name: 'CreateLigueInput',
   nullable: false,
   description: 'Input de creation de accpted',
   definition (t) {
@@ -56,19 +56,19 @@ export const CreateAcceptedInput = inputObjectType({
   }
 })
 
-export const createAcceptedMutationField = mutationField('createAccepted', {
-  type: Accepted,
+export const createLigueMutationField = mutationField('createLigue', {
+  type: Ligue,
   nullable: false,
-  args: { input: arg({ type: CreateAcceptedInput, nullable: true }) },
-  resolve: resolvers.createAcceptedResolve
+  args: { input: arg({ type: CreateLigueInput, nullable: true }) },
+  resolve: resolvers.createLigueResolve
 })
 
 //UPDATE
 
-export const UpdateAcceptedInput = inputObjectType({
-    name: 'UpdateAcceptedInput',
+export const UpdateLigueInput = inputObjectType({
+    name: 'UpdateLigueInput',
     nullable: false,
-    description: 'Input de modification de accepted',
+    description: 'Input de modification de ligue',
     definition (t) {
       t.string('role', { nullable: true })
       t.string('ligueName', { nullable: true })
@@ -77,11 +77,11 @@ export const UpdateAcceptedInput = inputObjectType({
     }
   })
   
-  export const UpdateAcceptedMutationField = mutationField('updateAccepted', {
-    type: Accepted,
+  export const UpdateLigueMutationField = mutationField('updateLigue', {
+    type: Ligue,
     nullable: false,
-    args: { id: objIdArg({ nullable: false }), input: arg({ type: UpdateAcceptedInput, nullable: false }) },
-    resolve: resolvers.updateAcceptedResolve
+    args: { id: objIdArg({ nullable: false }), input: arg({ type: UpdateLigueInput, nullable: false }) },
+    resolve: resolvers.updateLigueResolve
   })
 
   // DELETE
@@ -101,3 +101,21 @@ export const UpdateAcceptedInput = inputObjectType({
 //     resolve: (...params) => { return resolvers.deleteUserResolve(...params) }
 //   })
   
+// INPUT
+
+export const LigueInput = inputObjectType({
+  name: 'LigueInput',
+  definition (t) {
+    t.objID('id', {
+      description: 'Id. Ne peut être utilisé conjointement avec input.',
+      nullable: true,
+      args: {}
+    })
+    t.field('input', {
+      type: CreateLigueInput,
+      description: 'Input. Ne peut être utilisé conjointement avec id.',
+      nullable: true,
+      args: {}
+    })
+  }
+})

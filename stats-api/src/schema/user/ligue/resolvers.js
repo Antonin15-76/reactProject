@@ -75,12 +75,10 @@ export const createAcceptedResolve = async (root, { input }, ctx) => {
     const collection = await ctx.db.collection(collectionName)
 
     const objectToInsert = {
-        lastName: input.lastName,
-        firstName: input.firstName,
-        pseudo: input.pseudo,
-        email: input.email,
-        password: input.password,
-        password: input.ligue.map(x => x.id.toString()),
+        role: input.role,
+        ligueName: input.ligueName,
+        isAccepted: input.isAccepted,
+        isBan: input.isBan,
         // createdBy: ObjectId(ctx.currentUser),
         // updatedBy: ObjectId(ctx.currentUser),
         createdAt: DateTime.local().setZone(ctx.timeZone).toUTC().toJSDate(),

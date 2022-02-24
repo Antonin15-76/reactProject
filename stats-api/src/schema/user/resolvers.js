@@ -3,6 +3,7 @@ import Joi from 'joi'
 import { DateTime } from 'luxon'
 import { clearFromLoader, loadFromLoader } from 'server/dataloaders'
 import { ObjectId } from 'mongodb'
+import { ApolloError } from 'apollo-server'
 
 const collectionName = 'user'
 
@@ -26,7 +27,6 @@ export const ligueResolve = async (user, _, ctx) => {
 
 export const userResolve = async (root, { id }, ctx) => {
     if (!id) return null
-    console.log(ctx.loaders)
     const user = await loadFromLoader(ctx.loaders.userLoader, id)
     if (!user) throw new NotFoundError('ArticleCaracteristic not found', { userId: id })
     return user
@@ -59,7 +59,7 @@ const testValidity = async (doc, ctx) => {
         lastName: doc.lastName,
         pseudo: doc.pseudo,
         email: doc.email,
-        password: doc.name,
+        password: doc.password,
         ligueIds: doc.ligueIds
     }
     const result = schema.validate(objectToUser)
@@ -82,14 +82,14 @@ const postCreate = async (id, ctx) => {
 
 export const createUserResolve = async (root, { input }, ctx) => {
     const collection = await ctx.db.collection(collectionName)
-
+  console.log(input)
     const objectToInsert = {
         lastName: input.lastName,
         firstName: input.firstName,
         pseudo: input.pseudo,
         email: input.email,
         password: input.password,
-        password: input.ligue.map(x => x.id.toString()),
+        ligues: input?.ligue?.map(x => x.id.toString()),
         // createdBy: ObjectId(ctx.currentUser),
         // updatedBy: ObjectId(ctx.currentUser),
         createdAt: DateTime.local().setZone(ctx.timeZone).toUTC().toJSDate(),
