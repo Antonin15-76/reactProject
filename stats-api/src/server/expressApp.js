@@ -43,11 +43,9 @@ app.use('/login', async (req, res, next) => {
     }
     const db = await dbPromise
  
-    const user = await db.collection('user').findOne({ username })
-
+    const user = await db.collection('user').findOne({ pseudo: username })
     if (!user) throw new NotFoundError('User not found')
     const isGood = await bcrypt.compare(password, user.password)
-    console.log(isGood)
     if (!isGood) throw new AuthenticationError()
     // const token = jwt.sign({ userId: user._id.toString() }, process.env.SECRET)
     // res.json({ token })

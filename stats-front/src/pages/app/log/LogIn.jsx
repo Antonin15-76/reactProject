@@ -37,18 +37,15 @@ const FormLogin = () => {
   
   const username = useInput('')
   const password = useInput('')
-  const [passwordHash, setPasswordHash] = useState('')
-  console.log(username)
   const classes = useStyles()
   const snackbar = useSnackbar()
   // const needToChangePasswordDialog = useState(false)
   console.log(response)
   // const navigate = useNavigate()
   const handleOnSubmit = async () => {
-    console.log(passwordHash)
     await post({
       username: username.value,
-      password: passwordHash
+      password: password.value
     })
     
     // if (response.ok) {
@@ -93,7 +90,7 @@ const FormLogin = () => {
         <form id='loginId' onSubmit={handleOnSubmit} gridProps={{ alignItems: 'center', justifyContent: 'center' }} boxProps={{ height: 'auto' }} style={{ width: '800px', padding: '16px' }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <LoginField username={username} password={password} setPasswordHash={setPasswordHash} disabled={loading} required />
+              <LoginField username={username} password={password} disabled={loading} required />
             </Grid>
             <Grid item xs={12}>
               {/* <PasswordField onChange={handleOnChangePassword} fullWidth disabled={loading} required /> */}

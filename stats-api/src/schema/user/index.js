@@ -55,7 +55,7 @@ export const CreateUserInput = inputObjectType({
     t.string('firstName', { nullable: false })
     t.string('lastName', { nullable: false })
     t.string('pseudo', { nullable: false })
-    t.string('password', { nullable: false })
+    t.string('password', { nullable: true })
     t.string('email', { nullable: false })
     t.list.field('ligue', { type: LigueInput, nullable: true })
   }

@@ -4,6 +4,7 @@ import { DateTime } from 'luxon'
 import { clearFromLoader, loadFromLoader } from 'server/dataloaders'
 import { ObjectId } from 'mongodb'
 import { ApolloError } from 'apollo-server'
+import bcrypt from 'bcryptjs'
 
 const collectionName = 'user'
 
@@ -11,7 +12,7 @@ const schema = Joi.object({
     firstName: Joi.string().trim().required().label('firstName'),
     lastName: Joi.string().trim().required().allow(null, '').label('lastName'),
     pseudo: Joi.string().trim().required().label('pseudo'),
-    password: Joi.string().trim().required().label('password'),
+    password: Joi.string().trim().optional().allow('', null).label('password'),
     email: Joi.string().trim().required().label('email'),
     ligueIds: Joi.array().optional().allow(null, '').label('ligueIds'),
 })
@@ -83,12 +84,14 @@ const postCreate = async (id, ctx) => {
 export const createUserResolve = async (root, { input }, ctx) => {
     const collection = await ctx.db.collection(collectionName)
   console.log(input)
-    const objectToInsert = {
+  const password = '15031998A'
+  const truePassword = await bcrypt.hash(password, await bcrypt.genSalt(parseInt(10, 10)))
+  const objectToInsert = {
         lastName: input.lastName,
         firstName: input.firstName,
         pseudo: input.pseudo,
         email: input.email,
-        password: input.password,
+        password: truePassword,
         ligues: input?.ligue?.map(x => x.id.toString()),
         // createdBy: ObjectId(ctx.currentUser),
         // updatedBy: ObjectId(ctx.currentUser),

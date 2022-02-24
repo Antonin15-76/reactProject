@@ -1,14 +1,8 @@
 import { Stack, TextField } from "@material-ui/core"
-import bcrypt from 'bcryptjs'
 import { useMemo } from "react"
 
-const salt = bcrypt.genSaltSync(10)
-
 const LoginField = (props) => {
-  const { username, disabled, password, setPasswordHash } = props
-  console.log(bcrypt)
-  const hashedPassword = bcrypt.hashSync(password?.value, salt)
-  console.log(hashedPassword)
+  const { username, disabled, password } = props
   return (
     <Stack direction="row" spacing={2}>
       <TextField
@@ -26,9 +20,7 @@ const LoginField = (props) => {
         type='password'
         label='password'
         defaultValue={password.value}
-        onChange={() => {
-          setPasswordHash(hashedPassword)
-        }}
+        onChange={password.onChange}
         disabled={disabled}
         fullWidth
       />
