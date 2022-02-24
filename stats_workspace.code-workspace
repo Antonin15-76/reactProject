@@ -1,10 +1,10 @@
 {
 	"folders": [
 		{
-			"path": "astreinte-api"
+			"path": "stats-api"
 		},
 		{
-			"path": "astreinte-client"
+			"path": "stats-front"
 		}
 		
 	],
