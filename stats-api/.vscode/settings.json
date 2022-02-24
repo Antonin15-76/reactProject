@@ -8,7 +8,6 @@
     "bower_components": true,
     "dll": true,
     "flow-typed": true,
-    "C_Cpp.errorSquiggles": true,
     "release": true,
     "node_modules": true,
     "npm-debug.log.*": true,
