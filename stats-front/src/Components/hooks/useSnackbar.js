@@ -6,6 +6,7 @@ import { useMemo } from 'react'
  */
 const useSnackbar = (defaultOptions = {}) => {
   const snackbar = useSnackbarMUI()
+  console.log(snackbar)
   return useMemo(() => {
     const showMessage = (variant = 'default') => (texts, options = {}) => {
       const style = Object.assign({}, { whiteSpace: 'pre-line' }, defaultOptions, options)

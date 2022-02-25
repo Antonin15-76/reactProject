@@ -1,6 +1,8 @@
 import { CircularProgress, Dialog, DialogTitle, Grid, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/styles"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useLocalStorage } from "react-use"
 import useFetch from 'use-http'
 import useInput from "../../../Components/hooks/useInput"
 import useSnackbar from "../../../Components/hooks/useSnackbar"
@@ -32,7 +34,7 @@ const LogIn = () => {
 
 const FormLogin = () => {
   console.log('fhshgd')
-  const { post, response, loading, error } = useFetch('http://localhost:3001/login', [])
+  const { post, response, loading, error } = useFetch('http://localhost:3001/login', { cachePolicy: 'cache-and-network' })
   // console.log(post)
   
   const username = useInput('')
@@ -41,28 +43,36 @@ const FormLogin = () => {
   const snackbar = useSnackbar()
   // const needToChangePasswordDialog = useState(false)
   console.log(response)
-  // const navigate = useNavigate()
+  console.log(error)
+  const navigate = useNavigate()
+  const [, setToken] = useLocalStorage('accessToken')
+
   const handleOnSubmit = async () => {
     await post({
       username: username.value,
       password: password.value
     })
     
-    // if (response.ok) {
-    //   snackbar.showSuccess('Connexion réussie')
-    // } else {
-    //   switch (response.data.code) {
-    //     case 'PASSWORD_NEED_TO_CHANGE': {
-    //       snackbar.showError('Le mot de passe doit être créé')
-    //       // dialog.onClose()
-    //       // needToChangePasswordDialog.onClick()
-    //       break
-    //     }
-    //     default: {
-    //       break
-    //     }
-    //   }
-    // }
+    if (response.ok) {
+      console.log('Connexion réussie')
+      const jsonResponse = await response.json()
+      console.log(snackbar)
+      setToken(jsonResponse.token)
+      // snackbar.showSuccess('Connexion réussie')
+      navigate('/app')
+    } else {
+      switch (response.data.code) {
+        case 'PASSWORD_NEED_TO_CHANGE': {
+          snackbar.showError('Le mot de passe doit être créé')
+          // dialog.onClose()
+          // needToChangePasswordDialog.onClick()
+          break
+        }
+        default: {
+          break
+        }
+      }
+    }
   }
 
   const forgotPasswordDialog = useState(false)
@@ -77,8 +87,6 @@ const FormLogin = () => {
     <>
       <Dialog
         open={true}
-        titleProps={{ disableTypography: true }}
-        haveButton={false}
         maxWidth='xm'
       // title={(
       //   <>
@@ -86,8 +94,8 @@ const FormLogin = () => {
       //   </>
       // )}
       >
-        <DialogTitle><Typography align='center' textTransform='uppercase' variant='h6' style={{ fontWeight: 600 }}>Bienvenue sur Stats F1</Typography></DialogTitle>
-        <form id='loginId' onSubmit={handleOnSubmit} gridProps={{ alignItems: 'center', justifyContent: 'center' }} boxProps={{ height: 'auto' }} style={{ width: '800px', padding: '16px' }}>
+        <DialogTitle><Typography align='center' variant='h6' style={{ fontWeight: 600 }}>Bienvenue sur Stats F1</Typography></DialogTitle>
+        <form id='loginId' style={{ width: '800px', padding: '16px' }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <LoginField username={username} password={password} disabled={loading} required />
@@ -97,7 +105,7 @@ const FormLogin = () => {
               <Typography color='primary' align='center' className={classes.forgotpasswordLink} onClick={openForgotPasswordDialog}>Mot de passe oublié</Typography>
             </Grid>
             <Grid item xs={12} style={{ textAlign: 'center' }}>
-              {!loading && <ValidateButton title='Connexion' id='loginId' />}
+              {!loading && <ValidateButton onClick={handleOnSubmit} title='Connexion' id='loginId' />}
               {loading && <CircularProgress sizePreset='md' />}
             </Grid>
             {error && (

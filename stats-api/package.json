@@ -10,7 +10,7 @@
     "debug-dev": "nodemon --inspect --icu-data-dir=node_modules/full-icu index.js"
   },
   "private": true,
-  "author": "SPHA DEV",
+  "author": "STASTS DEV",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.10.4",

@@ -14,31 +14,31 @@ const verifyAuthentication = async (req, res, next) => {
   //   req.currentUser = (await (await dbPromise).collection('user').findOne({ username: 'vmetton@spha.fr' }))._id
   //   return next()
   // }
-  // const authHeader = req.header('Authorization') ?? null
-  // console.log(authHeader)
+  const authHeader = req.header('Authorization') ?? null
   try {
   //   // On vérifie si le header est présent
-  //   if (!authHeader) {
-  //     throw new AuthenticationError('No header provided')
-  //   }
+    if (!authHeader) {
+      throw new AuthenticationError('No header provided')
+    }
     
-    // if (
-    //   authHeader.includes('Bearer') &&
-    //   authHeader.substring('Bearer'.length + 1) === 'undefined'
-    // ) {
-    //   throw new AuthenticationError('No header provided')
-    // }
+    if (
+      authHeader.includes('Bearer') &&
+      authHeader.substring('Bearer'.length + 1) === 'undefined'
+    ) {
+      throw new AuthenticationError('No header provided')
+    }
     // On récupère le token à vérifier
-    // const token = authHeader.includes('Bearer') ? authHeader.substring('Bearer'.length + 1) : authHeader
-
+    const token = authHeader.includes('Bearer') ? authHeader.substring('Bearer'.length + 1) : authHeader
     // On le vérifie et on récupère le token décodé
     let payload
-    // try {
-    //   payload = jwt.verify(token, process.env.SECRET)
-    // } catch (err) {
-    //   throw new TokenError('Expired')
-    // }
+    try {
+      payload = jwt.verify(token, '1')
+    } catch (err) {
+      res.json({ code: 401 })
+      throw new TokenError('Expired')
+    }
     // On vérifie que le token n'est pas révoqué
+    // console.log(token)
     // const accessToken = await (await dbPromise).collection('accessToken').findOne({ token })
     // if (!accessToken) {
     // throw new TokenError('Revoked')
