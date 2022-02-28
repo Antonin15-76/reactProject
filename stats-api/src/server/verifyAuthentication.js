@@ -14,7 +14,7 @@ const verifyAuthentication = async (req, res, next) => {
   //   req.currentUser = (await (await dbPromise).collection('user').findOne({ username: 'vmetton@spha.fr' }))._id
   //   return next()
   // }
-  const authHeader = req.header('Authorization') ?? null
+  const authHeader = req?.cookies?.token ?? req?.signedCookies?.token ?? req.header('Authorization') ?? req?.query?.token ?? null
   try {
   //   // On vérifie si le header est présent
     if (!authHeader) {
@@ -45,14 +45,14 @@ const verifyAuthentication = async (req, res, next) => {
     // }
 
     // On vérifie que l'utilisateur existe et on le renvoit si c'est le cas
-    if (!payload.userId) {
+    if (!payload?.userId) {
       throw new AuthenticationError('Bad header provided')
     }
-    const user = await (await dbPromise).collection('user').findOne({ _id: ObjectId(payload.userId) })
+    const user = await (await dbPromise).collection('user').findOne({ _id: ObjectId(payload?.userId) })
     if (!user) {
       throw new NotFoundError('User not found')
     }
-    req.currentUser = user._id
+    req.currentUser = user?._id
     return next()
   } catch (err) {
     return next(err)

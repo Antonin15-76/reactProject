@@ -30,11 +30,10 @@ const getFromConnection = async (connection) => {
 }
 
 const getFromRequest = async request => {
-  console.log(`Bearer ${process.env.ESCIENT_API_TOKEN}`)
   const tokenHeader = request.header('Authorization') || `Bearer ${process.env.ESCIENT_API_TOKEN}`
   const token = tokenHeader.substring(7)
   return {
-    // currentUser: request.currentUser,
+    currentUser: request.currentUser,
     locale: request.acceptsLanguages('fr') || 'en_GB',
     timeZone: request.header('TimeZone') || 'UTC',
     token: token
@@ -73,7 +72,7 @@ const pubsub = new PubSub()
           try {
             return validateTokenAndFindUser(token)
           } catch (err) {
-            console.error(err)
+            // console.error(err)
           }
         throw new Error('Missing auth header!')
       }
