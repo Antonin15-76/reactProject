@@ -4,37 +4,29 @@ import { DateTime } from 'luxon'
 import { loadFromLoader } from 'server/dataloaders'
 import { ObjectId } from 'mongodb'
 
-const collectionName = 'season'
+const collectionName = 'palmaresLeague'
 
 const schema = Joi.object({
-  year: Joi.number().required().label('année'),
+  season: Joi.number().required().label('saison'),
   driver: Joi.any().required().label('vainqueur'),
   team: Joi.any().required().label('écurie'),
   race: Joi.any().required().label('circuit'),
-  position: Joi.number().required().label('année'),
-  points: Joi.any().required().label('vainqueur'),
-  isBestTime: Joi.any().required().label('écurie'),
-  bestTime: Joi.any().required().label('circuit')
 })
 
-export const yearResolve = async (season, _, ctx) => season.year
-export const driverResolve = async (season, _, ctx) => season.driver
-export const teamResolve = async (season, _, ctx) => season.team
-export const raceResolve = async (season, _, ctx) => season.race
-export const positionResolve = async (season, _, ctx) => season.position
-export const pointsResolve = async (season, _, ctx) => season.points
-export const isBestTimeResolve = async (season, _, ctx) => season.isBestTime
-export const bestTimeResolve = async (season, _, ctx) => season.bestTime
+export const seasonResolve = async (palmaresLeague, _, ctx) => palmaresLeague.season
+export const driverResolve = async (palmaresLeague, _, ctx) => palmaresLeague.driver
+export const teamResolve = async (palmaresLeague, _, ctx) => palmaresLeague.team
+export const raceResolve = async (palmaresLeague, _, ctx) => palmaresLeague.race
 
-export const seasonResolve = async (root, { id }, ctx) => {
+export const palmaresLeagueResolve = async (root, { id }, ctx) => {
   if (!id) return null
   console.log(ctx.loaders)
-  const season = await loadFromLoader(ctx.loaders.seasonLoader, id)
-  if (!season) throw new NotFoundError('Season not found', { seasonId: id })
-  return season
+  const palmaresLeague = await loadFromLoader(ctx.loaders.palmaresLeagueLoader, id)
+  if (!palmaresLeague) throw new NotFoundError('PalmaresLeague not found', { palmaresLeagueId: id })
+  return palmaresLeague
 }
 
-export const seasonsResolve = async (root, { input = {}, count = false }, ctx) => {
+export const palmaresLeaguesResolve = async (root, { input = {}, count = false }, ctx) => {
   const collection = await ctx.db.collection(collectionName)
   const datas = collection.find().toArray()
   // const { search = {}, sort = { name: 1 }, limit = 0, skip = 0 } = input
@@ -55,54 +47,46 @@ export const seasonsResolve = async (root, { input = {}, count = false }, ctx) =
   return datas
 }
 
-const seasonValidity = async (doc, ctx) => {
-  const objectToSeason = {
-    year: doc.year,
+const palmaresLeagueValidity = async (doc, ctx) => {
+  const objectToPalmaresLeague = {
+    season: doc.season,
     driver: doc.driver,
     race: doc.race,
     team: doc.team,
-    position: doc.position,
-    points: doc.points,
-    isBestTime: doc.isBestTime,
-    bestTime: doc.bestTime,
   }
-  const result = schema.validate(objectToSeason)
+  const result = schema.validate(objectToPalmaresLeague)
   if (result.error) throw new UserInputError('Validation Failed', { error: result.error })
   const findObj = { name: doc.name }
   if (doc._id) findObj._id = { $ne: doc._id }
-  const seasonDocument = await ctx.db.collection(collectionName).findOne(findObj)
-  if (seasonDocument) throw new UniqueError('', { value: doc, otherValue: seasonDocument })
+  const palmaresLeagueDocument = await ctx.db.collection(collectionName).findOne(findObj)
+  if (palmaresLeagueDocument) throw new UniqueError('', { value: doc, otherValue: palmaresLeagueDocument })
 
-  return seasonDocument
+  return palmaresLeagueDocument
 }
 
 const preCreate = async (doc, ctx) => {
-  return seasonValidity(doc, ctx)
+  return palmaresLeagueValidity(doc, ctx)
 }
 
 const postCreate = async (id, ctx) => {
-  return seasonResolve(null, { id }, ctx)
+  return palmaresLeagueResolve(null, { id }, ctx)
 }
 
-export const createSeasonResolve = async (root, {input}, ctx) => {
+export const createPalmaresLeagueResolve = async (root, {input}, ctx) => {
   const collection = await ctx.db.collection(collectionName)
 
   const objectToInsert = {
-    year: input.year,
+    season: input.season,
     race: input.race,
     team: input.team,
     driver: input.driver,
-    position: input.position,
-    points: input.points,
-    isBestTime: input.isBestTime,
-    bestTime: input.bestTime,
     // createdBy: ObjectId(ctx.currentUser),
     // updatedBy: ObjectId(ctx.currentUser),
     createdAt: DateTime.local().setZone(ctx.timeZone).toUTC().toJSDate(),
     updatedAt: DateTime.local().setZone(ctx.timeZone).toUTC().toJSDate()
   }
-  const seasonDocument = await preCreate(objectToInsert, ctx)
-  if (seasonDocument) postCreate(seasonDocument._id, ctx)
+  const palmaresLeagueDocument = await preCreate(objectToInsert, ctx)
+  if (palmaresLeagueDocument) postCreate(palmaresLeagueDocument._id, ctx)
   let id
   try {
     id = (await collection.insertOne(objectToInsert)).insertedId

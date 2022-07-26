@@ -8,12 +8,20 @@ import path from 'path'
 import test from './test'
 import * as globalNexusTypes from './globalNexusTypes'
 import * as user from './user'
+import race from './race'
+import * as Palmares from './ligue/classement/palmares'
+import * as Team from './team'
+import * as Driver from './driver'
 
 const nexusSchema = makeSchema({
   plugins: [declarativeWrappingPlugin()],
   types: [
     ...Object.values(globalNexusTypes),
     ...Object.values(user),
+    ...Object.values(Palmares),
+    ...Object.values(Team),
+    ...Object.values(Driver),
+    ...race,
     ...test
   ],
 

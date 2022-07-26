@@ -4,44 +4,53 @@ import { DateTime } from 'luxon'
 import { loadFromLoader } from 'server/dataloaders'
 import { ObjectId } from 'mongodb'
 
-const collectionName = 'leagueDriver'
+const collectionName = 'driver'
 
 const schema = Joi.object({
-  pseudo: Joi.string().required().label('pseudo'),
+  firstName: Joi.string().required().label('prenom'),
+  lastName: Joi.string().required().label('nom de famille'),
   nationality: Joi.string().required().label('nationalité'),
   number: Joi.number().required().label('numéro'),
   teamActual: Joi.any().required().label('team actuelle'),
-  actualLeague: Joi.any().required().label('ligue actuelle'),
   birthDate: Joi.date().required().label('date de naissance'),
+  tall: Joi.number().required().label('taille'),
   numberVictory: Joi.number().required().label('nombre de victoire'),
   numberPodium: Joi.number().required().label('nombre de podium'),
   numberPole: Joi.number().required().label('nombre de pole'),
   numberTitlePilote: Joi.number().required().label('nombre titre de pole'),
-  seasonTitle: Joi.any().required().label('saisons de titre')
+  numberLap: Joi.number().required().label('nombre de tour'),
+  yearsTitle: Joi.any().required().label('année de titre'),
+  startCarrer: Joi.date().required().label('début de carrière'),
+  endCarrer: Joi.date().required().label('fin de carrière'),
+  otherTeam: Joi.any().required().label('autre écuries'),
 })
 
-export const pseudoResolve = async (leagueDriver, _, ctx) => leagueDriver.pseudo
-export const nationalityResolve = async (leagueDriver, _, ctx) => leagueDriver.nationality
-export const numberResolve = async (leagueDriver, _, ctx) => leagueDriver.number
-export const teamActualResolve = async (leagueDriver, _, ctx) => leagueDriver.teamActual
-export const actualLeagueResolve = async (leagueDriver, _, ctx) => leagueDriver.actualLeague
-export const birthDateResolve = async (leagueDriver, _, ctx) => leagueDriver.birthDate
-export const numberVictoryResolve = async (leagueDriver, _, ctx) => leagueDriver.numberVictory
-export const numberPodiumResolve = async (leagueDriver, _, ctx) => leagueDriver.numberPodium
-export const numberPoleResolve = async (leagueDriver, _, ctx) => leagueDriver.numberPole
-export const numberTitlePiloteResolve = async (leagueDriver, _, ctx) => leagueDriver.numberTitlePilote
-export const numberLapResolve = async (leagueDriver, _, ctx) => leagueDriver.numberLap
-export const seasonTitleResolve = async (leagueDriver, _, ctx) => leagueDriver.seasonTitle
+export const firstNameResolve = async (driver, _, ctx) => driver.firstName
+export const lastNameResolve = async (driver, _, ctx) => driver.lastName
+export const nationalityResolve = async (driver, _, ctx) => driver.nationality
+export const numberResolve = async (driver, _, ctx) => driver.number
+export const teamActualResolve = async (driver, _, ctx) => driver.teamActual
+export const birthDateResolve = async (driver, _, ctx) => driver.birthDate
+export const tallResolve = async (driver, _, ctx) => driver.tall
+export const numberVictoryResolve = async (driver, _, ctx) => driver.numberVictory
+export const numberPodiumResolve = async (driver, _, ctx) => driver.numberPodium
+export const numberPoleResolve = async (driver, _, ctx) => driver.numberPole
+export const numberTitlePiloteResolve = async (driver, _, ctx) => driver.numberTitlePilote
+export const numberLapResolve = async (driver, _, ctx) => driver.numberLap
+export const yearsTitleResolve = async (driver, _, ctx) => driver.yearsTitle
+export const startCarrerResolve = async (driver, _, ctx) => driver.startCarrer
+export const endCarrerResolve = async (driver, _, ctx) => driver.endCarrer
+export const otherTeamResolve = async (driver, _, ctx) => driver.otherTeam
 
 export const driverResolve = async (root, { id }, ctx) => {
   if (!id) return null
   console.log(ctx.loaders)
-  const leagueDriver = await loadFromLoader(ctx.loaders.leagueDriverLoader, id)
-  if (!leagueDriver) throw new NotFoundError('leagueDriver not found', { leagueDriverId: id })
-  return leagueDriver
+  const driver = await loadFromLoader(ctx.loaders.driverLoader, id)
+  if (!driver) throw new NotFoundError('Driver not found', { driverId: id })
+  return driver
 }
 
-export const leagueDriversResolve = async (root, { input = {}, count = false }, ctx) => {
+export const driversResolve = async (root, { input = {}, count = false }, ctx) => {
   const collection = await ctx.db.collection(collectionName)
   const datas = collection.find().toArray()
   // const { search = {}, sort = { name: 1 }, limit = 0, skip = 0 } = input
@@ -62,19 +71,24 @@ export const leagueDriversResolve = async (root, { input = {}, count = false }, 
   return datas
 }
 
-const leagueDriverValidity = async (doc, ctx) => {
+const driverValidity = async (doc, ctx) => {
   const objectToDriver = {
-    pseudo: doc.pseudo,
+    firstName: doc.firstName,
+    lastName: doc.lastName,
     nationality: doc.nationality,
     number: doc.number,
     teamActual: doc.teamActual,
-    actualLeague: doc.actualLeague,
     birthDate: doc.birthDate,
+    tall: doc.tall,
     numberVictory: doc.numberVictory,
     numberPodium: doc.numberPodium,
     numberPole: doc.numberPole,
     numberTitlePilote: doc.numberTitlePilote,
-    seasonTitle: doc.seasonTitle
+    numberLap: doc.numberLap,
+    yearsTitle: doc.yearsTitle,
+    startCarrer: doc.startCarrer,
+    endCarrer: doc.endCarrer,
+    otherTeam: doc.otherTeam
   }
 
   const result = schema.validate(objectToDriver)
@@ -88,28 +102,33 @@ const leagueDriverValidity = async (doc, ctx) => {
 }
 
 const preCreate = async (doc, ctx) => {
-  return leagueDriverValidity(doc, ctx)
+  return driverValidity(doc, ctx)
 }
 
 const postCreate = async (id, ctx) => {
-  return leagueDriverResolve(null, { id }, ctx)
+  return driverResolve(null, { id }, ctx)
 }
 
-export const createLeagueDriverResolve = async (root, {input}, ctx) => {
+export const createDriverResolve = async (root, {input}, ctx) => {
   const collection = await ctx.db.collection(collectionName)
 
   const objectToInsert = {
-    pseudo: input.pseudo,
+    firstName: input.firstName,
+    lastName: input.lastName,
     nationality: input.nationality,
     number: input.number,
     teamActual: input.teamActual,
-    actualLeague: input.actualLeague,
     birthDate: input.birthDate,
+    tall: input.tall,
     numberVictory: input.numberVictory,
     numberPodium: input.numberPodium,
     numberPole: input.numberPole,
     numberTitlePilote: input.numberTitlePilote,
-    seasonTitle: input.yearsTitle
+    numberLap: input.numberLap,
+    yearsTitle: input.yearsTitle,
+    startCarrer: input.startCarrer,
+    endCarrer: input.endCarrer,
+    otherTeam: input.otherTeam,
     // createdBy: ObjectId(ctx.currentUser),
     // updatedBy: ObjectId(ctx.currentUser),
     createdAt: DateTime.local().setZone(ctx.timeZone).toUTC().toJSDate(),

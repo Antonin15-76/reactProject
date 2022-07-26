@@ -11,7 +11,7 @@ const Log = () => {
     if (loading) return <CircularProgress sizePreset='xl' />
     console.log(data)
     console.log(error)
-    if (data) {
+    if (data.code) {
         if (data.code !== 401) return error.toString()
         return <LogIn />
     }

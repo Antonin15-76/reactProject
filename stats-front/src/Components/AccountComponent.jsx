@@ -5,6 +5,7 @@ import useSnackbar from "./hooks/useSnackbar"
 import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "react-use"
 import useFetch from 'use-http'
+import ModeComponent from "./ModeComponent"
 
 const AccountComponent = () => {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -49,6 +50,7 @@ const PopoverContent = (props) => {
     const snackbar = useSnackbar()
     const navigate = useNavigate()
     const [, setToken] = useLocalStorage('accessToken')
+    const [ mode, setMode ] = useState(false)
 
     const handleOnClickLogout = async () => {
         await get()
@@ -71,6 +73,7 @@ const PopoverContent = (props) => {
                     }}
                 />
                 <Stack align='center'>
+                    <ModeComponent value={mode} setMode={setMode} />
                     {/* <StackHorizontal>
               <BoldTypography textTransform='uppercase'>&nbsp;</BoldTypography>
               <BoldTypography textTransform='firstletteruppercase'></BoldTypography>
