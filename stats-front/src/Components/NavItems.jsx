@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Home from "../pages"
 
 const navItems = [
-    { label: 'Accueil', to: '/app/', Icon: Home, hasDivider: true },
+    { label: 'Accueil', to: '/app/home', Icon: Home, hasDivider: true },
     { label: 'Pilotes', to: '/app/pilotes', Icon: Home, hasDivider: true },
 ]
 

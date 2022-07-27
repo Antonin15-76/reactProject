@@ -1,6 +1,6 @@
 import { Button, Divider, Popover, Stack, Typography } from "@material-ui/core"
 import { AccountCircle, AccountCircleOutline } from "mdi-material-ui"
-import React, { useState } from "react"
+import React, { useMemo, useState } from "react"
 import useSnackbar from "./hooks/useSnackbar"
 import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "react-use"
@@ -50,8 +50,9 @@ const PopoverContent = (props) => {
     const snackbar = useSnackbar()
     const navigate = useNavigate()
     const [, setToken] = useLocalStorage('accessToken')
-    const [ mode, setMode ] = useState(false)
-
+    const [mode, setMode] = useLocalStorage('mode')
+    // const [ mode, setMode ] = useState(false)
+    console.log(mode)
     const handleOnClickLogout = async () => {
         await get()
         if (response.ok) {
