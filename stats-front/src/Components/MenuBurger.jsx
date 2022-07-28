@@ -5,7 +5,6 @@ import NavItems from "./NavItems"
 
 const MenuBurger = () => {
     const [anchorEl, setAnchorEl] = useState(null)
-    console.log(anchorEl)
     const isMenuOpen = Boolean(anchorEl)
     const menuId = 'primary-search-account-menu'
 

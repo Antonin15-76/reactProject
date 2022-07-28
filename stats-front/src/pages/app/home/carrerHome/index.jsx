@@ -1,9 +1,9 @@
-import PaperBook from "../../../../StoryBook/Paper"
+import PaperAccueil from "../../../../StoryBook/PaperAccueil"
 
 const CareerHome = () => {
 
     return (
-        <PaperBook 
+        <PaperAccueil 
             marginLeft={100}
             marginRight={100}
             marginTop={10}

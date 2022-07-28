@@ -10,7 +10,6 @@ const App = () => {
     const [token] = useLocalStorage('accessToken')
     const { data, loading, error } = useFetch('http://localhost:3001/verify-authentication', { headers: { Authorization: `Bearer ${token}` }, cachePolicy: 'cache-and-network' }, [])
     const testClient = useClient(token)
-    console.log(data)
     
     if (loading) return <CircularProgress sizePreset='xl' />
     // if (data.code !== '401') {
