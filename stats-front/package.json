@@ -25,6 +25,7 @@
     "google-libphonenumber": "^3.2.21",
     "graphql": "^15.5.0",
     "highcharts": "^10.2.0",
+    "highcharts-react-official": "^3.1.0",
     "history": "^5",
     "joi": "^17.4.0",
     "luxon": "^1.26.0",
