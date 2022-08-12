@@ -5,7 +5,8 @@ import Home from "../pages"
 
 const navItems = [
     { label: 'Accueil', to: '/app/home', Icon: Home, hasDivider: true },
-    { label: 'Pilotes', to: '/app/pilotes', Icon: Home, hasDivider: true },
+    { label: 'Pilotes', to: '/app/league/driver/f1/pilote', Icon: Home, hasDivider: true },
+    { label: 'Admin', to: '/app/admin', Icon: Home, hasDivider: true },
 ]
 
 const useNavigationItems = () => {

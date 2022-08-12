@@ -19,7 +19,7 @@ const Applayout = memo(() => {
           <MenuBurger />
           <typographyClasses
             variant="h6"
-            noWrap
+            // noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >

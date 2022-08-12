@@ -42,10 +42,10 @@ export const driverQueryField = queryField('leagueDriver', {
   resolve: resolvers.driverResolve
 })
 
-export const driversQueryField = queryField('drivers', {
+export const driversQueryField = queryField('leagueDrivers', {
   list: true,
   type: LeagueDriver,
-  nullable: false,
+  nullable: true,
   description: 'recupérer la liste des drivers',
   args: { input: arg({ type: LeagueDriverArgumentInput, nullable: true }) },
   resolve: resolvers.driversResolve

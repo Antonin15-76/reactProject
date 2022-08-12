@@ -109,7 +109,7 @@ export const createLeagueDriverResolve = async (root, {input}, ctx) => {
     numberPodium: input.numberPodium,
     numberPole: input.numberPole,
     numberTitlePilote: input.numberTitlePilote,
-    seasonTitle: input.yearsTitle
+    seasonTitle: input.yearsTitle,
     // createdBy: ObjectId(ctx.currentUser),
     // updatedBy: ObjectId(ctx.currentUser),
     createdAt: DateTime.local().setZone(ctx.timeZone).toUTC().toJSDate(),

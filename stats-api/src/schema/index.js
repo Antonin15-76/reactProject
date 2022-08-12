@@ -5,7 +5,7 @@
 
 import { makeSchema, declarativeWrappingPlugin } from 'nexus'
 import path from 'path'
-import test from './test'
+import ligue from './ligue'
 import * as globalNexusTypes from './globalNexusTypes'
 import * as user from './user'
 import race from './race'
@@ -22,7 +22,7 @@ const nexusSchema = makeSchema({
     ...Object.values(Team),
     ...Object.values(Driver),
     ...race,
-    ...test
+    ...ligue
   ],
 
   outputs: {
