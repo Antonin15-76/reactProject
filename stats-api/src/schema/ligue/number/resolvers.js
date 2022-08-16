@@ -16,14 +16,6 @@ export const isAttributedResolve = async (leagueNumber, _, ctx) => {
   return leagueNumber.isAttributed
 }
 
-export const driverResolve = async (root, { id }, ctx) => {
-  if (!id) return null
-  console.log(ctx.loaders)
-  const leagueNumber = await loadFromLoader(ctx.loaders.leagueNumberLoader, id)
-  if (!leagueNumber) throw new NotFoundError('leagueNumber not found', { leagueNumberId: id })
-  return leagueNumber
-}
-
 export const leagueNumbersResolve = async (root, { input = {}, count = false }, ctx) => {
   const collection = await ctx.db.collection(collectionName)
   const datas = collection.find().toArray()
@@ -96,10 +88,10 @@ export const createLeagueNumberResolve = async (root, {input}, ctx) => {
     if (err instanceof ApolloError) throw err
     throw new GeneralError(err.message, err)
   }
-  // return postCreate(id, ctx)
+  return postCreate(id, ctx)
 }
 
-export const createAllNumberResolve = async (root, {input}, ctx) => {
+export const createAllNumberResolve = async (root, { input }, ctx) => {
   const collection = await ctx.db.collection(collectionName)
   const values = []
   const errors = []
@@ -110,7 +102,7 @@ export const createAllNumberResolve = async (root, {input}, ctx) => {
       }
     try {
       const values = await createLeagueNumberResolve(null, { input: inputInsert }, ctx)
-      values.push(value)
+      values.push(values)
     } catch (err) {
       errors.push(err)
     }

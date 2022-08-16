@@ -2,8 +2,6 @@ import { Grid, MenuItem, TextField } from "@material-ui/core"
 import { useMemo, useState } from "react"
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
-import SelectNumber from "./SelectNumber"
-import SelectLeague from "./SelectLeague"
 
 const Form = () => {
 
@@ -37,21 +35,6 @@ const Form = () => {
                 </Grid>
                 <Grid item xs={4}>
                   <Select options={options} value={value} onChange={changeHandler} />
-                </Grid>
-                <Grid item xs={4}>
-                  <SelectLeague
-                    id='league'
-                    value={league}
-                    onChange={leagueHandleOnChange}
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <SelectNumber 
-                    fullWidth
-                    id='number'
-                    value={number}
-                    onChange={handleChange}
-                  />
                 </Grid>
                 <Grid item xs={4}>
                     <TextField 

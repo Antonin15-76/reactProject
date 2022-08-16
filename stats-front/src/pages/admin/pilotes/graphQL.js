@@ -18,3 +18,16 @@ export const createLeagueDriver = gql`mutation createLeagueDriver($input: Create
     }
 }`
 
+export const allLeagueNumber = gql`query leagueNumbers {
+    leagueNumbers{
+        id
+        number
+    }
+}`
+
+export const allLeague = gql`query leagues {
+    leagues{
+        id
+        name
+    }
+}`

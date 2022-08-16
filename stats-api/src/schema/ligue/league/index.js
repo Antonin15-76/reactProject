@@ -30,16 +30,16 @@ export const leagueQueryField = queryField('league', {
   nullable: false,
   description: 'recupérer league par ID',
   args: { id: objIdArg({ description: 'ID de League', nullable: false }) },
-  resolve: resolvers.driverResolve
+  resolve: resolvers.leagueResolve
 })
 
 export const leaguesQueryField = queryField('leagues', {
   list: true,
   type: League,
   nullable: true,
-  description: 'recupérer la liste des drivers',
+  description: 'recupérer la liste des leagues',
   args: { input: arg({ type: LeagueArgumentInput, nullable: true }) },
-  resolve: resolvers.driversResolve
+  resolve: resolvers.leaguesResolve
 })
 
 // MUTATION

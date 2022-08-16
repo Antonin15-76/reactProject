@@ -12,6 +12,12 @@ const schema = Joi.object({
 
 export const nameResolve = async (league, _, ctx) => league.name
 
+export const leagueResolve = async (root, { id }, ctx) => {
+  if (!id) return null
+  const league = await loadFromLoader(ctx.loaders.leagueLoader, id)
+  if (!league) throw new NotFoundError('league not found', { leagueId: id })
+  return league
+}
 
 export const leaguesResolve = async (root, { input = {}, count = false }, ctx) => {
   const collection = await ctx.db.collection(collectionName)

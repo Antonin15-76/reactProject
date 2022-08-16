@@ -14,7 +14,7 @@ const navItems = [
   // { path: 'attribution/*', to: 'attribution', title: 'Attributions', Element: AttributionPage }
 ]
 
-const Libraries = () => {
+const Admin = () => {
   return (
     <Routes>
       <Route path='/' element={<HomePage />} />
@@ -68,4 +68,4 @@ const HomePage = () => {
   )
 }
 
-export default Libraries
+export default Admin

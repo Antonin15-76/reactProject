@@ -42,7 +42,7 @@ export const leagueNumberQueryField = queryField('leagueNumber', {
   nullable: false,
   description: 'recupérer leagueNumber par ID',
   args: { id: objIdArg({ description: 'ID de LeagueNumber', nullable: false }) },
-  resolve: resolvers.driverResolve
+  resolve: resolvers.leagueNumberResolve
 })
 
 export const leagueNumbersQueryField = queryField('leagueNumbers', {
@@ -51,7 +51,7 @@ export const leagueNumbersQueryField = queryField('leagueNumbers', {
   nullable: true,
   description: 'recupérer la liste des drivers',
   args: { input: arg({ type: LeagueNumberArgumentInput, nullable: true }) },
-  resolve: resolvers.driversResolve
+  resolve: resolvers.leagueNumbersResolve
 })
 
 // MUTATION
