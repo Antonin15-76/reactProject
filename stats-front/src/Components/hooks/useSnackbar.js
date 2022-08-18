@@ -11,7 +11,7 @@ const useSnackbar = (defaultOptions = {}) => {
     const showMessage = (variant = 'default') => (texts, options = {}) => {
       const style = Object.assign({}, { whiteSpace: 'pre-line' }, defaultOptions, options)
       const message = Array.isArray(texts) ? texts.join('\n') : texts
-      snackbar.enqueueSnackbar(message, { autoHideDuration: 1500, ...defaultOptions, ...options, style, variant })
+      // snackbar.enqueueSnackbar(message, { autoHideDuration: 1500, ...defaultOptions, ...options, style, variant })
     }
     return {
       ...snackbar,

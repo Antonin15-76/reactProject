@@ -8,7 +8,7 @@ import { Button, Grid, Paper, Stack } from '@material-ui/core'
 const navItems = [
   { path: 'leagues-league/*', to: 'leagues-league', title: 'Ligues', Element: League },
   { path: 'points-league/*', to: 'points-league', title: 'Système de Points', Element: Points },
-  { path: 'calendar-league/*', to: 'calendar-league', title: 'Ecuries', Element: Team }
+  { path: 'team-league/*', to: 'team-league', title: 'Ecuries', Element: Team }
   // { path: 'attribution/*', to: 'attribution', title: 'Attributions', Element: AttributionPage }
 ]
 

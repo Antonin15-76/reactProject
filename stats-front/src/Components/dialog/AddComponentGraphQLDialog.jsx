@@ -95,7 +95,7 @@ const AddComponentGraphQLDialog = (props) => {
         </DialogTitle>
         <Stack spacing={2} align='center' style={{ padding: '15px' }}>
           <Form formId={`${id}-add-form`} onSubmit={handleOnSubmit} externalValues={{ isSubmitting: mutateRes.loading, ...externalValues }} {...externalVariables} />
-          {!mutateRes.loading && <ValidateButton form={`${id}-add-form`} />}
+          {!mutateRes.loading && <ValidateButton form={`${id}-add-form`} title='gk' />}
           {mutateRes.loading && <CircularProgress sizePreset='md' />}
         </Stack>
         <DialogActions>

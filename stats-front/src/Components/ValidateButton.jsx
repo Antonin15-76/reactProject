@@ -4,7 +4,7 @@ const ValidateButton = (props) => {
     const { id, title, onClick } = props
     return (
         <Grid item xs={12}>
-            <Button onClick={onClick} id={id} title={title}>{title}</Button>
+            <Button type='submit' id={id} title={title} {...props}>{title}</Button>
         </Grid>
     )
 }

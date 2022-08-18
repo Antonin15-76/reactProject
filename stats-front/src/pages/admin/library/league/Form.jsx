@@ -2,62 +2,48 @@ import { Grid, MenuItem, TextField } from "@material-ui/core"
 import { useMemo, useState } from "react"
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
+import useInput from '../../../../Components/hooks/useInput'
+import useValidation from '../../../../Components/hooks/useValidation'
+import Joi from '../../../../utils/customJoi'
 
-const Form = () => {
+const schema = Joi.object({
+  name: Joi.string().required().label('nom')
+})
 
-  const [value, setValue] = useState('')
-  const [number, setNumber] = useState('')
-  const [league, setLeague] = useState('')
-  const options = useMemo(() => countryList().getData(), [])
+const Form = (props) => {
+  console.log(props)
+  const { formId, onSubmit } = props
+  const [ value, changeHandler ] = useInput('')
+  console.log(value)
+  const validation = useValidation(schema)
 
-  const changeHandler = value => {
-    setValue(value)
-  }
+  const handleOnSubmit = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log('erer')
+    const values = {
+      name: value
+    }
+    console.log(values)
+    const errors = validation.validate(values)
 
-  const handleChange = (event) => {
-    setNumber(event.target.value)
-  }
-
-  const leagueHandleOnChange = (event) => {
-    setLeague(event.target.value)
+    if (!errors) {
+      onSubmit(values)
+    }
   }
 
     return (
-        <form >
+        <form id={formId} onSubmit={handleOnSubmit}>
             <Grid container item spacing={2}>
-                <Grid item xs={4}>
+                <Grid item xs={12}>
                     <TextField 
                       fullWidth
-                      label='pseudo'
-                      id='pseudo'
-                      name='pseudo'
-                    />
-                </Grid>
-                <Grid item xs={4}>
-                  <Select options={options} value={value} onChange={changeHandler} />
-                </Grid>
-                <Grid item xs={4}>
-                    <TextField 
-                      fullWidth
-                      label='t'
-                      id='pseudo'
-                      name='pseudo'
-                    />
-                </Grid>
-                <Grid item xs={4}>
-                    <TextField 
-                      fullWidth
-                      label='pseudo'
-                      id='pseudo'
-                      name='pseudo'
-                    />
-                </Grid>
-                <Grid item xs={4}>
-                    <TextField 
-                      fullWidth
-                      label='pseudo'
-                      id='pseudo'
-                      name='pseudo'
+                      label='name'
+                      id='name'
+                      name='name'
+                      // value={value}
+                      defaultValue={value}
+                      onChange={changeHandler}
                     />
                 </Grid>
             </Grid>

@@ -2,9 +2,5 @@
 export const pageSize = 50
 
 export const constructVariables = (values, otherVariables) => {
-  return {
-    input: {
-      name: values.name
-    }
-  }
+  return Object.assign({}, { accountId: values.supplier, userAgencyId: values.userAgencyId }, otherVariables)
 }

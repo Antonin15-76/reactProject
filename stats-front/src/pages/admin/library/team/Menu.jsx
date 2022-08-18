@@ -12,7 +12,7 @@ const Menu = (props) => {
         <Stack direction='row'>
             <IconButton component={BackLink} title='Retour' />
             <Typography>
-                Leagues
+                Ecuries
             </Typography>
             <Box flexGrow={1} height='100%' display='flex' alignItems='center' justifyContent='right'>
                 <AddArticleSupplier />
