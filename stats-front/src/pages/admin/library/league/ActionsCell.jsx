@@ -7,6 +7,7 @@ import { constructVariables } from './constants'
 import DeleteGraphQLDialog from '../../../../Components/dialog/DeleteGraphQLDialog'
 import EditGraphQLDialog from '../../../../Components/dialog/EditGraphQLDialog'
 import useDialog from '../../../../Components/hooks/useDialog'
+import Actions from '../../../../Components/button/Actions'
 
 const ActionsCell = (props) => {
   const { row } = props
@@ -15,7 +16,7 @@ const ActionsCell = (props) => {
 
   return (
     <>
-      <Button>
+      <Actions>
         <MenuItem onClick={editDialog.handleOnClick}>
           <ListItemIcon><Pencil color='primary' /></ListItemIcon>
           <ListItemText
@@ -26,7 +27,7 @@ const ActionsCell = (props) => {
           <ListItemIcon><Delete color='error' /></ListItemIcon>
           <ListItemText primary='Supprimer' />
         </MenuItem>
-      </Button>
+      </Actions>
       <DeleteGraphQLDialog
         open={deleteDialog.open}
         onClose={deleteDialog.handleOnClose}

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
-import Admin from "../pages/admin"
-import Home from "../pages/app/home"
-import Pilotes from "../pages/app/league/driver/f1/pilote"
+import Admin from "../../pages/admin"
+import Home from "../../pages/app/home"
+import Pilotes from "../../pages/app/league/driver/f1/pilote"
 
 const AppRoutes = () => {
     return (

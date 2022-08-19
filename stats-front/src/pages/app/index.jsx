@@ -1,10 +1,10 @@
-import AppLayout from '../../Components/Applayout'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import { Navigate } from 'react-router-dom'
 import { CircularProgress } from '@material-ui/core'
 import useFetch from 'use-http'
 import useClient from '../../Components/hooks/useClient'
 import { useLocalStorage } from 'react-use'
+import Applayout from '../../Components/menu/Applayout'
 
 const App = () => {
     const [token] = useLocalStorage('accessToken')
@@ -19,7 +19,7 @@ const App = () => {
     // }
     return (
         <ApolloProvider client={testClient}>
-            <AppLayout />
+            <Applayout />
         </ApolloProvider>
     )
 }

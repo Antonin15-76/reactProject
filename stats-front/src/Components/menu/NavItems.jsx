@@ -1,7 +1,7 @@
 import { IconButton, ListItemIcon, ListItemText, MenuItem } from "@material-ui/core"
 import { forwardRef, Fragment, useMemo } from "react"
 import { Link } from "react-router-dom"
-import Home from "../pages"
+import Home from "../../pages"
 
 const navItems = [
     { label: 'Accueil', to: '/app/home', Icon: Home, hasDivider: true },

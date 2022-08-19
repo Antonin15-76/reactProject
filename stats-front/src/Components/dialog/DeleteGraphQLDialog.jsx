@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client'
 import { CircularProgress, Dialog, Stack } from '@material-ui/core'
 import { getGraphQLError } from '../../utils/getGraphQLError'
-import DeleteButton from '../DeleteButton'
+import DeleteButton from '../button/DeleteButton'
 import useSnackbar from '../hooks/useSnackbar'
 
 const DeleteGraphQLDialog = (props) => {
