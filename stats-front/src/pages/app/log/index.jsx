@@ -17,7 +17,14 @@ const Log = () => {
     //     return <LogIn />
     // }
 
-    // if (data.isLoggedIn) {
+    const { loading, error, data = {} } = useFetch(`http://localhost:3001/verify-authentication`, { headers: { Authorization: `Bearer ${token}` }, cachePolicy: 'cache-and-network' }, [])
+    if (loading) return <CircularProgress sizePreset='xl' />
+    if (data.code) {
+        if (data.code !== 401) return error.toString()
+        return <LogIn />
+    }
+
+    if (data.isLoggedIn) {
           return <Navigate to='/app' />
     //   }
 }

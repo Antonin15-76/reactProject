@@ -3,11 +3,11 @@ import { useQuery } from "@apollo/client"
 import { queryTest } from './graphQL'
 import DataGrid from '../../../Components/DataGrid'
 const columns = [
-    {
-        field: 'id',
-        headerName: 'ID',
-        flex: 1
-    },
+    // {
+    //     field: 'id',
+    //     headerName: 'ID',
+    //     flex: 1
+    // },
     {
         field: 'name',
         headerName: 'Nom',

@@ -1,16 +1,21 @@
 import { useState } from "react"
 
-const useInput = (initialValue) => {
+export const useInput = (
+    initialValue: any = '',
+    callback: any = null
+  ): any => {
     const [value, setValue] = useState(initialValue)
-
-    const handleChange = (event) => {
-        setValue(event.target.value)
-    };
-
-    return {
-        value,
-        onChange: handleChange
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value
+  
+      setValue(newValue)
+      if (callback) callback(newValue)
     }
-}
-
-export default useInput
+    const forceChange = (newValue: string | number) => {
+      setValue(newValue)
+      if (callback) callback(newValue)
+    }
+    return [value, onChange, forceChange]
+  }
+  
+  export default useInput

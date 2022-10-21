@@ -6,7 +6,7 @@ import { useLocalStorage } from "react-use"
 import useFetch from 'use-http'
 import useInput from "../../../Components/hooks/useInput"
 import useSnackbar from "../../../Components/hooks/useSnackbar"
-import ValidateButton from "../../../Components/ValidateButton"
+import ValidateButton from "../../../Components/button/ValidateButton"
 import LoginField from "./LoginField"
 
 const useStyles = makeStyles((theme) => ({
