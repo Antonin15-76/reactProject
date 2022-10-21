@@ -5,7 +5,7 @@ import Pilotes from "../pages/app/pilotes"
 const AppRoutes = () => {
     return (
         <Routes>
-            {/* <Route path='/' element={<Home />} /> */}
+            <Route path='/' element={<Home />} />
             <Route path='pilotes/*' element={<Pilotes />} />
         </Routes>
     )
