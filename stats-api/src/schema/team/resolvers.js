@@ -9,17 +9,17 @@ const collectionName = 'team'
 const schema = Joi.object({
   name: Joi.string().required().label('nom'),
   nationality: Joi.string().required().label('nationalité'),
-  start: Joi.number().required().label('début'),
-  end: Joi.any().required().label('fin'),
-  drivers: Joi.date().required().label('pilotes'),
+  start: Joi.date().required().label('début'),
+  end: Joi.any().label('fin'),
+  drivers: Joi.date().label('pilotes'),
   numberTitleConstructor: Joi.number().required().label('nombre de titre constructeur'),
   numberVictory: Joi.number().required().label('nombre de victoire'),
   numberPodium: Joi.number().required().label('nombre de podium'),
   numberPole: Joi.number().required().label('nombre de pole'),
   numberTitlePilote: Joi.number().required().label('nombre titre de pole'),
   numberLap: Joi.number().required().label('nombre de tour'),
-  yearsTitlePilote: Joi.any().required().label('année des titres pilotes'),
-  yearsTitleConstructor: Joi.date().required().label('année des titres constructeurs')
+  yearsTitlePilote: Joi.any().label('année des titres pilotes'),
+  yearsTitleConstructor: Joi.date().label('année des titres constructeurs')
 })
 
 export const nameResolve = async (team, _, ctx) => team.name
@@ -33,7 +33,7 @@ export const numberPodiumResolve = async (team, _, ctx) => team.numberPodium
 export const numberPoleResolve = async (team, _, ctx) => team.numberPole
 export const numberTitlePiloteResolve = async (team, _, ctx) => team.numberTitlePilote
 export const numberLapResolve = async (team, _, ctx) => team.numberLap
-export const yearsTitlePiloteResolve = async (team, _, ctx) => team.yearsTitle
+export const yearsTitlePiloteResolve = async (team, _, ctx) => team.yearsTitlePilote
 export const yearsTitleConstructorResolve = async (team, _, ctx) => team.yearsTitleConstructor
 
 export const teamResolve = async (root, { id }, ctx) => {
@@ -78,7 +78,7 @@ const teamValidity = async (doc, ctx) => {
     numberPole: doc.numberPole,
     numberTitlePilote: doc.numberTitlePilote,
     numberLap: doc.numberLap,
-    yearsTitle: doc.yearsTitle,
+    yearsTitlePilote: doc.yearsTitlePilote,
     yearsTitleConstructor: doc.yearsTitleConstructor
   }
 
@@ -100,9 +100,9 @@ const postCreate = async (id, ctx) => {
   return teamResolve(null, { id }, ctx)
 }
 
-export const createTeamResolve = async (root, {input}, ctx) => {
+export const createTeamResolve = async (root, { input }, ctx) => {
   const collection = await ctx.db.collection(collectionName)
-
+  
   const objectToInsert = {
     name: input.name,
     nationality: input.nationality,
@@ -115,7 +115,7 @@ export const createTeamResolve = async (root, {input}, ctx) => {
     numberPole: input.numberPole,
     numberTitlePilote: input.numberTitlePilote,
     numberLap: input.numberLap,
-    yearsTitle: input.yearsTitle,
+    yearsTitlePilote: input.yearsTitlePilote,
     yearsTitleConstructor: input.yearsTitleConstructor,
     // createdBy: ObjectId(ctx.currentUser),
     // updatedBy: ObjectId(ctx.currentUser),

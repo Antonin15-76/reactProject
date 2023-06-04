@@ -1,5 +1,5 @@
 
-import { arg, inputObjectType, mutationField, objectType, queryField } from "nexus"
+import { arg, idArg, inputObjectType, mutationField, objectType, queryField } from "nexus"
 import { objIdArg } from "schema/globalNexusTypes"
 import * as resolvers from "./resolvers"
 
@@ -26,7 +26,7 @@ export const testQueryField = queryField('test', {
   type: Test,
   nullable: false,
   description: 'recupérer test par ID',
-  args: { id: objIdArg({ description: 'ID de Test', nullable: false }) },
+  args: { id: idArg({ description: 'ID de Test', nullable: false }) },
   resolve: resolvers.testResolve
 })
 

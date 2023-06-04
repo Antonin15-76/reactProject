@@ -4,6 +4,7 @@ import { objIdArg } from "schema/globalNexusTypes"
 import { Race } from "schema/race/infoRace"
 import { Team, TeamInput } from "schema/team"
 import * as resolvers from "./resolvers"
+import { League, LeagueInput } from "schema/ligue/league"
 
 export const LeagueDriver = objectType({
   name: 'LeagueDriver',
@@ -13,7 +14,7 @@ export const LeagueDriver = objectType({
     t.string('nationality', { nullable: false, resolve: resolvers.nationalityResolve })
     t.int('number', { nullable: false, resolve: resolvers.numberResolve })
     t.objID('teamActual', { type: Team, nullable: false, resolve: resolvers.teamActualResolve })
-    t.objID('actualLeague', { nullable: false, resolve: resolvers.actualLeagueResolve })
+    t.objID('actualLeague', { type: League, nullable: false, resolve: resolvers.actualLeagueResolve })
     t.date('birthDate', { nullable: false, resolve: resolvers.birthDateResolve })
     t.int('numberVictory', { nullable: false, resolve: resolvers.numberVictoryResolve })
     t.int('numberPodium', { nullable: false, resolve: resolvers.numberPodiumResolve })
@@ -62,7 +63,7 @@ export const CreateLeagueDriverInput = inputObjectType({
     t.string('nationality', { nullable: false })
     t.int('number', { nullable: false })
     t.objID('teamActual', { type: TeamInput, nullable: false })
-    t.objID('actualLeague', { nullable: false })
+    t.objID('actualLeague', { type: LeagueInput, nullable: false })
     t.date('birthDate', { nullable: false })
     t.int('numberVictory', { nullable: false })
     t.int('numberPodium', { nullable: false })
@@ -90,7 +91,7 @@ export const UpdateLeagueDriverInput = inputObjectType({
       t.string('nationality', { nullable: false })
       t.int('number', { nullable: false })
       t.objID('teamActual', { type: TeamInput, nullable: false })
-      t.objID('actualLeague', { nullable: false })
+      t.objID('actualLeague', { type: LeagueInput, nullable: false })
       t.date('birthDate', { nullable: false })
       t.int('numberVictory', { nullable: false })
       t.int('numberPodium', { nullable: false })

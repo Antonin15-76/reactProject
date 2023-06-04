@@ -27,6 +27,7 @@ export const ligueResolve = async (user, _, ctx) => {
 }
 
 export const userResolve = async (root, { id }, ctx) => {
+  console.log('kdjfdk')
     if (!id) return null
     const user = await loadFromLoader(ctx.loaders.userLoader, id)
     if (!user) throw new NotFoundError('ArticleCaracteristic not found', { userId: id })

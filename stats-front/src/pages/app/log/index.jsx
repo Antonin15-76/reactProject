@@ -26,7 +26,7 @@ const Log = () => {
 
     if (data.isLoggedIn) {
           return <Navigate to='/app' />
-    //   }
+      }
 }
 
 export default Log

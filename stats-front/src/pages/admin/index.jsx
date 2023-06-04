@@ -1,13 +1,13 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import { forwardRef } from 'react'
-import Pilotes from './pilotes'
+import PiloteLeagues from './pilotes'
 import Calendar from './calendar'
 import Results from './results'
 import Library from './library'
 import { Button, Grid, Paper, Stack } from '@material-ui/core'
 
 const navItems = [
-  { path: 'pilotes-league/*', to: 'pilotes-league', title: 'Pilotes de ligue', Element: Pilotes },
+  { path: 'pilotes-league/*', to: 'pilotes-league', title: 'Pilotes de ligue', Element: PiloteLeagues },
   { path: 'results-league/*', to: 'results-league', title: 'Résultats de leagues', Element: Results },
   { path: 'calendar-league/*', to: 'calendar-league', title: 'Calendrier', Element: Calendar },
   { path: 'library-league/*', to: 'library-league', title: 'Bibliothèque', Element: Library },
@@ -24,7 +24,6 @@ const Admin = () => {
           <Route key={to} path={path} element={<Element />} />
         )
       })}
-
     </Routes>
   )
 }
