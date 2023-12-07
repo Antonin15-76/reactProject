@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client"
 import { leagueDrivers } from "./graphQL"
-import List from "./List"
+// import List from "./List"
 import Menu from "./Menu"
 
 const PiloteLeagues = () => {

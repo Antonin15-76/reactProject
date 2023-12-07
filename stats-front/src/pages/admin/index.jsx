@@ -4,12 +4,14 @@ import PiloteLeagues from './pilotes'
 import Calendar from './calendar'
 import Results from './results'
 import Library from './library'
-import { Button, Grid, Paper, Stack } from '@material-ui/core'
+import { Button, Grid, Paper } from '@material-ui/core'
+import { Stack } from '@mui/material'
 
 const navItems = [
   { path: 'pilotes-league/*', to: 'pilotes-league', title: 'Pilotes de ligue', Element: PiloteLeagues },
   { path: 'results-league/*', to: 'results-league', title: 'Résultats de leagues', Element: Results },
   { path: 'calendar-league/*', to: 'calendar-league', title: 'Calendrier', Element: Calendar },
+  { path: 'circuit/*', to: 'circuit', title: 'Circuit', Element: Circuit },
   { path: 'library-league/*', to: 'library-league', title: 'Bibliothèque', Element: Library },
   // { path: 'attribution/*', to: 'attribution', title: 'Attributions', Element: AttributionPage }
 ]

@@ -1,4 +1,4 @@
-import { Button, Divider, Popover, Stack, Typography } from "@material-ui/core"
+import { Button, Divider, Popover, Typography } from "@material-ui/core"
 import { AccountCircle, AccountCircleOutline } from "mdi-material-ui"
 import React, { useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -6,7 +6,7 @@ import { useLocalStorage } from "react-use"
 import useFetch from 'use-http'
 import ModeComponent from "./ModeComponent"
 import { useGridColumnMenu } from "@material-ui/data-grid"
-import useSnackbar from "../hooks/useSnackbar"
+import { Stack } from "@mui/material"
 
 const AccountComponent = () => {
     const [anchorEl, setAnchorEl] = useState(null)
@@ -48,7 +48,6 @@ const AccountComponent = () => {
 const PopoverContent = (props) => {
     const { loading, error } = props
     const { get, response } = useFetch('http://localhost:3001/logout', { cachePolicy: 'cache-and-network' })
-    const snackbar = useSnackbar()
     const navigate = useNavigate()
     const [, setToken] = useLocalStorage('accessToken')
     const [mode, setMode] = useLocalStorage('mode')

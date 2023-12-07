@@ -1,8 +1,9 @@
 import { useMutation } from '@apollo/client'
-import { CircularProgress, Dialog, Stack } from '@material-ui/core'
+import { CircularProgress, Dialog } from '@material-ui/core'
 import { getGraphQLError } from '../../utils/getGraphQLError'
 import DeleteButton from '../button/DeleteButton'
-import useSnackbar from '../hooks/useSnackbar'
+import { Stack } from '@mui/material'
+import SnackbarComponent from '../snackBar/Snackbar'
 
 const DeleteGraphQLDialog = (props) => {
   const {
@@ -20,7 +21,6 @@ const DeleteGraphQLDialog = (props) => {
     externalVariables = {},
     update
   } = props
-  const snackbar = useSnackbar()
   const updateFunction = update || ((cache) => {
     cache.modify({
       fields: {
@@ -34,14 +34,14 @@ const DeleteGraphQLDialog = (props) => {
   const [mutate, mutateRes] = useMutation(mutation, {
     variables: { id: elementId, ...externalVariables },
     onCompleted () {
-      snackbar.showSuccess(successText)
+      <SnackbarComponent message={"success"} />
       if (refetch) refetch()
       onClose()
     },
     onError (error) {
       const texts = [errorText]
       texts.push(getGraphQLError(error))
-      snackbar.showError(texts.join('\n'))
+      return <SnackbarComponent message={texts} />
     },
     update: updateFunction
   })
@@ -64,7 +64,7 @@ const DeleteGraphQLDialog = (props) => {
           {children}
         </div>
         {!mutateRes.loading && <DeleteButton onClick={handleOnClick} />}
-        {mutateRes.loading && <CircularProgress sizePreset='md' />}
+        {mutateRes.loading && <CircularProgress size={5} />}
       </Stack>
     </Dialog>
   )

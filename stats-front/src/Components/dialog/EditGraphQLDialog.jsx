@@ -1,11 +1,13 @@
 import { useMutation, useQuery } from '@apollo/client'
 import useSnackbar from '../hooks/useSnackbar'
 import { useMemo } from 'react'
-import { CircularProgress, Dialog, DialogActions, DialogTitle, IconButton, Stack, Tooltip } from '@material-ui/core'
+import { CircularProgress, Dialog, DialogActions, DialogTitle, IconButton } from '@material-ui/core'
 import ValidateButton from '../button/ValidateButton'
-import CancelButton from '../button/CancelButton'
+// import CancelButton from '../button/CancelButton'
 import { getGraphQLError } from '../../utils/getGraphQLError'
 import ErrorText from '../ErrorText'
+import { Stack } from '@mui/material'
+
 const EditGraphQLDialog = (props) => {
   const {
     open,
@@ -83,14 +85,14 @@ const FormQuery = (props) => {
   const { formId, queryKey, Form, loadingMutation, open, loading, error, data, externalVariables, ...rest } = props
   if (!open) return null
 
-  if (loading) return <div style={{ textAlign: 'center' }}><CircularProgress sizePreset='lg' /></div>
+  if (loading) return <div style={{ textAlign: 'center' }}><CircularProgress size={3} /></div>
   if (error) return <div style={{ textAlign: 'center' }}><ErrorText /></div>
 
   return (
     <Stack spacing={2} align='center'>
       <Form formId={formId} {...externalVariables} defaultValues={data[queryKey]} {...rest} isEdit />
       {!loadingMutation && <ValidateButton form={formId} />}
-      {loadingMutation && <CircularProgress sizePreset='md' />}
+      {loadingMutation && <CircularProgress size={5} />}
     </Stack>
   )
 }

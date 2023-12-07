@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "react-use"
 import useFetch from 'use-http'
 import useInput from "../../../Components/hooks/useInput"
-import useSnackbar from "../../../Components/hooks/useSnackbar"
 import ValidateButton from "../../../Components/button/ValidateButton"
 import LoginField from "./LoginField"
+import SnackbarComponent from "../../../Components/snackBar/Snackbar"
 
 const useStyles = makeStyles((theme) => ({
   forgotpasswordLink: {
@@ -40,7 +40,6 @@ const FormLogin = () => {
   const username = useInput('')
   const password = useInput('')
   const classes = useStyles()
-  const snackbar = useSnackbar()
   // const needToChangePasswordDialog = useState(false)
   console.log(response)
   console.log(error)
@@ -56,14 +55,13 @@ const FormLogin = () => {
     if (response.ok) {
       console.log('Connexion réussie')
       const jsonResponse = await response.json()
-      console.log(snackbar)
       setToken(jsonResponse.token)
       // snackbar.showSuccess('Connexion réussie')
       navigate('/app')
     } else {
       switch (response.data.code) {
         case 'PASSWORD_NEED_TO_CHANGE': {
-          snackbar.showError('Le mot de passe doit être créé')
+          <SnackbarComponent message={"Le mot de passe doit être créé"} />
           // dialog.onClose()
           // needToChangePasswordDialog.onClick()
           break
@@ -106,7 +104,7 @@ const FormLogin = () => {
             </Grid>
             <Grid item xs={12} style={{ textAlign: 'center' }}>
               {!loading && <ValidateButton onClick={handleOnSubmit} title='Connexion' id='loginId' />}
-              {loading && <CircularProgress sizePreset='md' />}
+              {loading && <CircularProgress size={5} />}
             </Grid>
             {error && (
               <Grid item xs={12} style={{ textAlign: 'center' }}>

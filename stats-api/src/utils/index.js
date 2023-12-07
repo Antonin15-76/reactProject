@@ -9,8 +9,10 @@ export const mongoClientPromise = MongoClient.connect(process.env.MONGO_URL, { .
  * @type {Promise<import('mongodb').Db>}
  */
 
- export const dbPromise = mongoClientPromise.then(client => client.db(process.env.MONGO_DATABASE)).catch((err) => {
+ export const dbPromise = mongoClientPromise.then(client => 
+  client.db(process.env.MONGO_DATABASE)).catch((err) => {
   console.error(err)
+  
 })
 /** @returns {import('mongodb').Collection} */
 export const getCollection = (collectionName, ctx) => {

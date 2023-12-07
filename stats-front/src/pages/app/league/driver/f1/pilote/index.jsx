@@ -1,5 +1,6 @@
-import { Avatar, Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, Paper, Stack, Typography } from "@material-ui/core"
+import { Avatar, Button, Card, CardActions, CardContent, CardMedia, Divider, Grid, Paper, Typography } from "@material-ui/core"
 import { height } from "@material-ui/system"
+import { Stack } from "@mui/material"
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loader
 

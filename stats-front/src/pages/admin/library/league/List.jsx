@@ -2,8 +2,8 @@ import { useQuery } from "@apollo/client"
 // import { Route, Routes } from "react-router-dom"
 import { queryTest } from './graphQL'
 import DataGrid from '../../../../Components/DataGrid'
-import { Stack } from "@material-ui/core"
 import ActionsCell from "./ActionsCell"
+import { Stack } from "@mui/material"
 
 const columns = [
     {

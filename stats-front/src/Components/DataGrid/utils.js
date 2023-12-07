@@ -15,7 +15,7 @@ export const components = {
 
 /** @type {import('@material-ui/data-grid').GridLocaleText} */
 export const localeText = {
-  ...frFR.components.MuiDataGrid.defaultProps.localeText,
+  ...frFR.components?.MuiDataGrid.defaultProps.localeText,
   toolbarExportCSV: 'Exporter en CSV',
   toolbarExport: 'Exporter',
   toolbarExportLabel: 'Exporter',

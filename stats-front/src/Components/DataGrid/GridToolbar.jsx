@@ -1,5 +1,6 @@
-import { Divider, Stack } from '@material-ui/core'
+import { Divider } from '@material-ui/core'
 import { GridToolbarColumnsButton, GridToolbarDensitySelector, GridToolbarFilterButton, GridToolbarContainer, GridToolbarExport } from '@material-ui/data-grid'
+import { Stack } from '@mui/material'
 
 const GridToolbar = (props) => {
   if (props.inTab) return <GridToolbarInTab {...props} />

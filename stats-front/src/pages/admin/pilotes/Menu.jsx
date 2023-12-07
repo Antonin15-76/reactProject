@@ -3,7 +3,8 @@ import BackLink from '../../../Components/BackLink'
 import { constructVariables } from './constants'
 import Form from './Form'
 import { createLeagueDriver, fragmentArticleSuppliers } from './graphQL'
-import { Box, IconButton, Stack, Typography } from '@material-ui/core'
+import { Box, IconButton, Typography } from '@material-ui/core'
+import { Stack } from '@mui/material'
 
 const Menu = (props) => {
   const { refetch } = props

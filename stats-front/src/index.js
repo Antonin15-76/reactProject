@@ -6,29 +6,32 @@ import reportWebVitals from './reportWebVitals';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core';
 import { frFR as coreFrFR } from '@material-ui/core/locale'
 import { frFR } from '@material-ui/data-grid'
-
+  
+const mode = localStorage.getItem("mode");
+console.log(mode)
+console.log(mode == '\"league\"' ? '#e61919' : '#6FA0F5')
 const theme = responsiveFontSizes(
-  createTheme(
-    {
-      palette: {
-        primary: {
-          light: '#83C9D7',
-          main: '#e61919',
-          dark: '#2296AE',
-          contrastText: '#fff'
-        },
-        secondary: {
-          light: '#64b5f6',
-          main: '#6FA0F5',
-          dark: '#1976d2',
-          contrastText: '#fff'
+    createTheme(
+      {
+        palette: {
+          primary: {
+            light: '#83C9D7',
+            main: mode == 'league' ? '#e61919' : '#6FA0F5',
+            dark: '#2296AE',
+            contrastText: '#fff'
+          },
+          secondary: {
+            light: '#64b5f6',
+            main: '#6FA0F5',
+            dark: '#1976d2',
+            contrastText: '#fff'
+          }
         }
-      }
-    },
-    frFR,
-    coreFrFR
+      },
+      frFR,
+      coreFrFR
+    )
   )
-)
 
 ReactDOM.render(
   <React.StrictMode>

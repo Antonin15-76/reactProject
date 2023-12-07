@@ -3,7 +3,8 @@ import { forwardRef } from 'react'
 import League from './league'
 import Points from './points'
 import Team from './team'
-import { Button, Grid, Paper, Stack } from '@material-ui/core'
+import { Button, Grid, Paper } from '@material-ui/core'
+import { Stack } from '@mui/material'
 
 const navItems = [
   { path: 'leagues-league/*', to: 'leagues-league', title: 'Ligues', Element: League },

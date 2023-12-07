@@ -2,8 +2,9 @@ import AddComponentGraphQLDialog from '../../../../Components/dialog/AddComponen
 import { constructVariables } from './constants'
 import Form from './Form'
 import { createLeague } from './graphQL'
-import { Box, IconButton, Stack, Typography } from '@material-ui/core'
+import { Box, IconButton, Typography } from '@material-ui/core'
 import BackLink from '../../../../Components/BackLink'
+import { Stack } from '@mui/material'
 
 const Menu = (props) => {
   const { refetch } = props
